@@ -58,6 +58,8 @@ namespace gleaf
     {
         English,
         Spanish,
+        German,
+        French,
     };
 
     struct InstallerResult
