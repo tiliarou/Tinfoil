@@ -38,6 +38,17 @@ namespace gleaf
 
     void Finalize()
     {
+        fs::Explorer *nsys = fs::GetNANDSystemExplorer();
+        fs::Explorer *nsfe = fs::GetNANDSafeExplorer();
+        fs::Explorer *nusr = fs::GetNANDUserExplorer();
+        fs::Explorer *prif = fs::GetPRODINFOFExplorer();
+        fs::Explorer *sdcd = fs::GetSdCardExplorer();
+        fs::DeleteDirectory(nsys->FullPathFor("contents/temp"));
+        delete nsys;
+        delete nsfe;
+        delete nusr;
+        delete prif;
+        delete sdcd;
         horizon::FinalizeGpioInputHandling();
         gpioExit();
         bpcExit();
@@ -59,6 +70,8 @@ namespace gleaf
 
     void EnsureDirectories()
     {
+        fs::Explorer *nsys = fs::GetNANDSystemExplorer();
+        fs::CreateDirectory(nsys->FullPathFor("contents/temp"));
         fs::CreateDirectory("sdmc:/goldleaf");
         fs::CreateDirectory("sdmc:/goldleaf/meta");
         fs::CreateDirectory("sdmc:/goldleaf/title");

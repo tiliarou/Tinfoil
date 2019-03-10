@@ -19,17 +19,26 @@ namespace pu
     class Layout
     {
         public:
-            Layout();
+            Layout(bool UseFocus = false);
             ~Layout();
             void AddChild(element::Element *Child);
             void ClearChildren();
             element::Element *GetChildAt(u32 Index);
             u32 GetChildCount();
             bool HasChilds();
-            void SetOnInput(std::function<void(u64 Down, u64 Up, u64 Held)> Callback);
-            std::function<void(u64 Down, u64 Up, u64 Held)> GetOnInput();
+            void SetElementOnFocus(element::Element *OnFocus);
+            element::Element *GetElementOnFocus();
+            void SetOnInput(std::function<void(u64 Down, u64 Up, u64 Held, bool Touch)> Callback);
+            std::function<void(u64 Down, u64 Up, u64 Held, bool Touch)> GetOnInput();
+            void AddThread(std::function<void()> Callback);
+            std::vector<std::function<void()>> GetAllThreads();
+            bool UsesFocus();
+            void SetUseFocus(bool Focus);
         private:
-            std::function<void(u64, u64, u64)> onipt;
+            bool ufocus;
+            std::function<void(u64, u64, u64, bool)> onipt;
+            std::vector<std::function<void()>> thds;
             std::vector<element::Element*> chld;
+            element::Element *efocus;
     };
 }

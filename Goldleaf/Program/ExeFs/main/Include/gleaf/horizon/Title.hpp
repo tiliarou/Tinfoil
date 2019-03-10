@@ -79,7 +79,10 @@ namespace gleaf::horizon
         u8 *TryGetIcon();
         bool DumpControlData();
         TitleContents GetContents();
-        Result Uninstall();
+        bool IsBaseTitle();
+        bool IsUpdate();
+        bool IsDLC();
+        bool CheckBase(Title &Other);
     };
 
     struct Ticket
@@ -117,6 +120,7 @@ namespace gleaf::horizon
 
     std::string FormatApplicationId(u64 ApplicationId);
     std::vector<Title> SearchTitles(ncm::ContentMetaType Type, Storage Location);
+    Title &Locate(u64 ApplicationId);
     bool ExistsTitle(ncm::ContentMetaType Type, Storage Location, u64 ApplicationId);
     std::vector<Ticket> GetAllTickets();
     Result RemoveTitle(Title &ToRemove);
@@ -126,4 +130,7 @@ namespace gleaf::horizon
     u64 GetBaseApplicationId(u64 ApplicationId, ncm::ContentMetaType Type);
     ApplicationIdMask IsValidApplicationId(u64 ApplicationId);
     TicketData ReadTicket(std::string Path);
+    std::string GetNACPName(NacpStruct *NACP);
+    std::string GetNACPAuthor(NacpStruct *NACP);
+    std::string GetNACPVersion(NacpStruct *NACP);
 }

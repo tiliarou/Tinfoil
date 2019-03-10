@@ -16,6 +16,14 @@
 
 namespace pu::element
 {
+    enum class FocusChangeDirection
+    {
+        Up,
+        Down,
+        Left,
+        Right,
+    };
+
     class Element
     {
         public:
@@ -26,10 +34,20 @@ namespace pu::element
             virtual u32 GetWidth() = 0;
             virtual u32 GetHeight() = 0;
             virtual void OnRender(render::Renderer *Drawer) = 0;
-            virtual void OnInput(u64 Down, u64 Up, u64 Held, bool Touch) = 0;
+            virtual void OnInput(u64 Down, u64 Up, u64 Held, bool Touch, bool Focus) = 0;
+            void ProcessInput(void *Lyt, u64 Down, u64 Up, u64 Held, bool Touch);
             bool IsVisible();
             void SetVisible(bool Visible);
+            bool IsAffectedByFocus();
+            void SetAffectedByFocus(bool Affected);
+            Element *GetFocusChangeElement(FocusChangeDirection Direction);
+            void SetFocusChangeElement(FocusChangeDirection Direction, Element *ToChange);
         protected:
             bool visible;
+            bool afocus;
+            Element *fup;
+            Element *fdown;
+            Element *fleft;
+            Element *fright;
     };
 }

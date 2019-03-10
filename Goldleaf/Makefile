@@ -7,11 +7,11 @@ endif
 TOPDIR ?= $(CURDIR)
 include $(DEVKITPRO)/libnx/switch_rules
 
-# Goldleaf's new Makefile system :)
+# Goldleaf's Makefile system, ready to build as NRO, NSP or qlaunch
 
 APP_TITLE   := Goldleaf
 APP_AUTHOR  := XorTroll
-APP_VERSION := 0.4
+APP_VERSION := 0.5
 APP_TITLEID	:= 050032A5CF12E000
 TARGET      := Goldleaf
 ICON		:= Control/RomFs/icon_AmericanEnglish.dat
@@ -33,8 +33,8 @@ CXXFLAGS	:= $(CFLAGS) -std=gnu++17 $(CXXFLAGS)
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
 
-LIBS	:=  -lnx -lpu -lhactool -lmbedcrypto -lfreetype -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lSDL2 -lEGL -lGLESv2 -lglapi -ldrm_nouveau -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs`
-LIBDIRS	:= $(PORTLIBS) $(CURDIR)/../libnx-Goldleaf/nx $(CURDIR)/Program/ExeFs/main/External/pu $(CURDIR)/Program/ExeFs/main/External/json $(CURDIR)/Program/ExeFs/main/External/hactool $(CURDIR)/Program/ExeFs/main/External/mbedtls
+LIBS	:=  -lnx -lfatdrive -lnx -lpu -lhactool -lmbedcrypto -lfreetype -lSDL2_ttf -lSDL2_gfx -lSDL2_image -lSDL2 -lEGL -lGLESv2 -lglapi -ldrm_nouveau -lpng -ljpeg `sdl2-config --libs` `freetype-config --libs`
+LIBDIRS	:= $(PORTLIBS) $(CURDIR)/../libnx-Goldleaf/nx $(CURDIR)/../libnx-Goldleaf/nx/fatdrive $(CURDIR)/Program/ExeFs/main/External/pu $(CURDIR)/Program/ExeFs/main/External/json $(CURDIR)/Program/ExeFs/main/External/hactool $(CURDIR)/Program/ExeFs/main/External/mbedtls
 
 ifneq ($(BUILD),$(notdir $(CURDIR)))
 
